@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brain Tumour Classifier</title>
+    <style>
+      :root { --ink:#eaf1ff; --muted:#aebbd7; --surface:rgba(16,31,62,.8); --line:rgba(173,196,242,.2); --brand:#75c9ff; }
+      * { box-sizing:border-box; }
+      body { min-height:100vh; margin:0; display:grid; place-items:center; padding:28px; color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,sans-serif; background:radial-gradient(circle at 15% 18%,#264d83 0,transparent 28rem),radial-gradient(circle at 85% 85%,#443b87 0,transparent 28rem),#081427; }
+      .app { width:min(930px,100%); overflow:hidden; display:grid; grid-template-columns:.9fr 1.1fr; border:1px solid var(--line); border-radius:24px; background:var(--surface); box-shadow:0 28px 80px rgba(0,0,0,.38); backdrop-filter:blur(18px); }
+      .intro { padding:48px; background:linear-gradient(145deg,rgba(90,153,224,.2),rgba(73,50,145,.14)); }
+      .eyebrow { margin:0 0 16px; color:var(--brand); font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+      h1 { margin:0; max-width:11ch; font-size:clamp(2.1rem,4vw,3.5rem); line-height:1.02; letter-spacing:-.06em; }
+      .intro > p:last-child { margin-top:24px; max-width:32ch; color:var(--muted); line-height:1.65; }
+      .panel { padding:38px; } h2 { margin:0 0 8px; font-size:1.2rem; } .panel > p { margin:0 0 25px; color:var(--muted); font-size:.92rem; }
+      form { display:grid; gap:14px; }.preview { height:210px; display:grid; place-items:center; overflow:hidden; border:1px dashed #6d8fc6; border-radius:14px; background:rgba(3,12,29,.45); color:var(--muted); }.preview img { width:100%; height:100%; object-fit:contain; }
+      label[for=image] { display:grid; place-items:center; min-height:52px; border-radius:10px; background:rgba(117,201,255,.13); color:var(--brand); font-weight:750; cursor:pointer; transition:.2s ease; } label[for=image]:hover { transform:translateY(-1px); background:rgba(117,201,255,.22); }
+      input { position:absolute; inline-size:1px; block-size:1px; opacity:0; } #file-name { min-height:20px; overflow:hidden; color:var(--muted); font-size:.84rem; text-overflow:ellipsis; white-space:nowrap; }
+      button { min-height:52px; border:0; border-radius:10px; background:linear-gradient(110deg,var(--brand),#a89dff); color:#06101f; font:inherit; font-weight:850; cursor:pointer; transition:transform .2s,opacity .2s; } button:hover:not(:disabled) { transform:translateY(-2px); } button:disabled { opacity:.65; cursor:wait; }
+      .result { min-height:45px; display:grid; place-items:center; margin-top:4px; padding:10px; border-radius:10px; text-align:center; font-weight:750; text-transform:capitalize; }.loading { color:var(--brand); }.success { background:rgba(75,210,152,.15); color:#8cf3bd; }.error { background:rgba(255,112,140,.13); color:#ffb4c4; text-transform:none; }
+      @media (max-width:720px) { body { padding:14px; }.app { grid-template-columns:1fr; }.intro,.panel { padding:30px; }h1 { max-width:none; } }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <section class="intro"><p class="eyebrow">MRI analysis</p><h1>Brain tumour classifier</h1><p>Upload an MRI image to run it through your trained image-classification model.</p></section>
+      <section class="panel">
+        <h2>Upload scan</h2><p>Supported formats: PNG, JPG, JPEG, and other readable image files.</p>
+        <form id="prediction-form">
+          <div class="preview"><span id="preview-placeholder">Your selected image will appear here</span><img id="preview" alt="Selected MRI preview" hidden></div>
+          <label for="image">Choose MRI image</label><input id="image" name="image" type="file" accept="image/*" required>
+          <span id="file-name">No file selected</span><button type="submit">Analyse image</button><output id="result" class="result" aria-live="polite"></output>
+        </form>
+      </section>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
